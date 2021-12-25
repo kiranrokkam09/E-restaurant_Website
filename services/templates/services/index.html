@@ -1,0 +1,11 @@
+{%extends "services/layout.html"%}
+{% block body %}
+<h1> Costumers<h1>
+<ul>
+    {%for c in costumer%}
+    <li> {{c.id}}  {{c.first}} {{c.last}} <li>
+</ul>
+{%endfor%}
+
+
+{%endblock%}
