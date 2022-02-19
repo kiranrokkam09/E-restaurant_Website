@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import costumer,tablebooking,menu
+from .models import tablebooking,items,cart
 
 # Register your models here.
 
-admin.site.register(costumer)
 admin.site.register(tablebooking)
-admin.site.register(menu)
+admin.site.register(items)
+admin.site.register(cart)

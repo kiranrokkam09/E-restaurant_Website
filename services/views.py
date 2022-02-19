@@ -17,14 +17,26 @@ def index(request):
 def booking(request):
     if request.method == "POST":
         current=request.user
-        table=tablebooking()
-        table.person=request.POST["name"]
-        table.tableno=request.POST["table no"]
-        table.date=request.post["day"]
-        table.time=request.post["hour"]
+        no=request.POST["tableno"]
+        table=tablebooking.objects.get(tableno=no)
+        table.person2=request.POST["name"]
+        table.date=request.POST["date"]
+        table.time=request.POST["time"]
         table.save()
-        return HttpResponseRedirect(reverse("index"))
+        
+        return HttpResponse("Table Booked")
     else:
-        return render (request,"services/table.html",{"dict":costumer.objects.first()})
+        return render (request,"services/table.html",{"dict":tablebooking.objects.all()})
 def menu(request):
-    return render(request,"services/menu.html",{"l":costumer.objects.first(),"m":costumer.objects.last()})
+    if request.method == "POST":
+        current=request.user
+        no=request.POST["item"]
+        table=items.objects.get(item=no)
+        list=cart.objects.create(sitem=no)
+        list.squantity=request.POST["quantity"]
+        list.sprice=(table.price)
+        list.save()
+        return HttpResponse("Added to cart")
+    else:
+        return render(request,"services/menu.html",{"list":items.objects.all()})
+            

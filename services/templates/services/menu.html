@@ -1,8 +1,20 @@
-{%extends "services/layout.html"%}
+{%extends "services/layout2.html"%}
 {% block body %}
-{%for i in l%}
-<ol>
-    <li>i</li>
-</ol>
-{%endfor%}
+<h1 ><center>CART</center><h1><br><br>
+<form class="form-control" id="form-submit" action="{% url 'menu'%}" method="POST">
+    {%csrf_token %}
+<fieldset>
+    <center>
+<label><b>ITEM<b></label><br>
+    <select class="form-select form-select-sm" name='item' onchange='this.form.()'>
+        {%for a in list%}
+        <option value="{{a.item}}">{{a.item}}</option>
+        {%endfor%}
+    </select><br><br>
+<label><b>Quantity<b></label><br>
+<input class="form-control" type="number" name="quantity" placeholder="quantity" minvalue=1></input><br><br>
+<button type="submit" class="btn btn-primary">Add</button><br>
+</center>
+</fieldset>
+</form>
 {%endblock%}
