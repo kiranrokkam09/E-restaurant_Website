@@ -14,6 +14,7 @@ from pathlib import Path
 import django_heroku
 import dj_database_url
 from decouple import config
+import smtpd
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -131,3 +132,12 @@ STATICFILES_STORAGE='whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 django_heroku.settings(locals())
+
+#Email settings
+
+EMAIL_HOST="smtp.gmail.com"
+EMAIL_PORT=587
+EMAIL_HOST_USER="kiran.rokkam09@gmail.com"
+EMAIL_HOST_PASSWORD="Kiran2122"
+EMAIL_USE_TLS=True
+# EMAIL_USE_SSL=False

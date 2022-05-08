@@ -8,6 +8,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_list_or_404
+from django.core.mail import send_mail
 
 
 # Create your views here.
@@ -39,4 +40,22 @@ def menu(request):
         return HttpResponse("Added to cart")
     else:
         return render(request,"services/menu.html",{"list":items.objects.all()})
+def contact(request):
+    if request.method=="POST":
+        name=request.POST["name"]
+        email=request.POST["email"]
+        subject=request.POST["subject"]
+        text=request.POST["text"]
+        
+        #Send email
+        send_mail(
+            subject, # subject
+            text, # message
+            email, # From email
+            ["kiran.rokkam456@gmail.com"], # to email
             
+        )
+
+        return render(request,'services/contact.html', {'name':name} )
+    else: 
+        return render(request,'services/contact.html',{})
