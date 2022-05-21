@@ -1,14 +1,21 @@
 {%extends "services/layout2.html"%}
 {% block body %}
 <h1 ><center>CART</center><h1><br><br>
+<div>
+    <center>
+        {%if text%}
+        <h2 style= "color:red;">{{text}}</h2>
+        {%endif%}
+    </center>
+</div>
 <form class="form-control" id="form-submit" action="{% url 'menu'%}" method="POST">
     {%csrf_token %}
 <fieldset>
     <center>
 <label><b>ITEM<b></label><br>
-    <select class="form-select form-select-sm" name='item' onchange='this.form.()'>
+    <select class="form-select form-select-sm" required name='itemname' onchange='this.form.()'>
         {%for a in list%}
-        <option value="{{a.item}}">{{a.item}}</option>
+        <option value="{{a}}">{{a}}</option>
         {%endfor%}
     </select><br><br>
 <label><b>Quantity<b></label><br>

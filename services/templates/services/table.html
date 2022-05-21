@@ -1,6 +1,13 @@
 {%extends "services/layout2.html"%}
 {%block body%}
                 <h2 ><center>Book Your Table Now</center></h2><br>
+                <div>
+                    <center>
+                        {%if text%}
+                        <h2 style= "color:red;">{{text}}</h2>
+                        {%endif%}
+                    </center>   
+                </div>
                 <form id="form-submit" action="{% url 'booking'%}" method="POST">
                     {%csrf_token %}
                     <fieldset>
@@ -14,7 +21,7 @@
                             <label><b>Table Number<b></label><br>
                             <select class="form-select" required name='tableno' onchange='this.form.()'>
                                     <option value="">Select tableno</option>
-                                    {%for table in dict%}
+                                    {%for table in dict1%}
                                     <option value="{{table.tableno}}">{{table.tableno}}</option><br>
                                     {%endfor%}
                             </select><br><br>
@@ -22,4 +29,5 @@
                         </center>
                     </fieldset>
                 </form>
+
 {%endblock%}

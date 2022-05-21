@@ -9,14 +9,19 @@ class tablebooking(models.Model):
     time=models.TimeField(null=True)
     
     def __str__(self):
-     return f"{self.person2} {self.tableno}"
+     return f"{self.person2} {self.tableno} {self.date}"
+ 
+class createtable(models.Model):
+     tableno=models.CharField(max_length=10)
+     def __str__(self):
+      return f"{self.tableno}"
     
-class items(models.Model):
-    item=models.CharField(max_length=64)
+class item(models.Model):
+    itemname=models.CharField(max_length=64)
     price=models.IntegerField(max_length=4)
     
     def __str__(self):
-     return f"{self.item} {self.price}"
+     return f"{self.itemname} {self.price}"
 class cart(models.Model):
     sitem=models.CharField(max_length=64)
     sprice=models.IntegerField(max_length=4,null=True)

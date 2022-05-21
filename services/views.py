@@ -17,29 +17,39 @@ def index(request):
 # @login_required(login_url='/login')  
 def booking(request):
     if request.method == "POST":
-        current=request.user
+        date=request.POST["date"]
         no=request.POST["tableno"]
-        table=tablebooking.objects.get(tableno=no)
-        table.person2=request.POST["name"]
-        table.date=request.POST["date"]
-        table.time=request.POST["time"]
+        try:
+            if(tablebooking.objects.get(date=date)):
+                try:
+                    if(tablebooking.objects.get(tableno=no)):
+                        return render (request,"services/table.html",{"text":"Table Already Booked","dict1":createtable.objects.all()}) 
+                except:
+                    table=tablebooking.objects.create(tableno=no)
+                    table.person2=request.POST["name"]
+                    table.date=date
+                    table.time=request.POST["time"]
+        except:
+            table=tablebooking.objects.create(tableno=no)
+            table.person2=request.POST["name"]
+            table.date=date
+            table.time=request.POST["time"]
         table.save()
-        
-        return HttpResponse("Table Booked")
+        return render(request,"services/table.html",{"text":"Table Booked","dict1":createtable.objects.all()})
     else:
-        return render (request,"services/table.html",{"dict":tablebooking.objects.all()})
+        return render (request,"services/table.html",{"dict1":createtable.objects.all()})
 def menu(request):
     if request.method == "POST":
-        current=request.user
-        no=request.POST["item"]
-        table=items.objects.get(item=no)
-        list=cart.objects.create(sitem=no)
-        list.squantity=request.POST["quantity"]
-        list.sprice=(table.price)
-        list.save()
-        return HttpResponse("Added to cart")
+        no=request.POST["itemname"]
+        table=item.objects.get(itemname=no)
+        # list=cart.objects.create(sitem=no)
+        # list.squantity=request.POST["quantity"]
+        # list.sprice=table.price
+        # list.save()
+        return render(request,"services/menu.html",{"text":table,"list":item.objects.all()})
     else:
-        return render(request,"services/menu.html",{"list":items.objects.all()})
+        return render(request,"services/menu.html",{"list":item.objects.all()})
+    
 def contact(request):
     if request.method=="POST":
         name=request.POST["name"]
