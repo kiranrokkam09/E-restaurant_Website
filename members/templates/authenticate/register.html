@@ -4,13 +4,13 @@
 
     <h2>Register</h2>
 
-    {% if message %}
-        <div>{{ message }}</div>
+    {% if form.errors %}
+        <div>There is an error!</div>
     {% endif %}
 
     <form action="{% url 'register' %}" method="post">
         {% csrf_token %}
-        <div class="form-group">
+        {% comment %} <div class="form-group">
             <input class="form-control" autofocus type="text" name="username" placeholder="Username">
         </div>
         <div class="form-group">
@@ -21,7 +21,9 @@
         </div>
         <div class="form-group">
             <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
-        </div>
+        </div> {% endcomment %}
+                    {{form.as_p}}
+        <br/><br/>
         <button type="submit" class="btn btn-primary">Register</button><br>
     </form>
 
